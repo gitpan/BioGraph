@@ -3,11 +3,11 @@ package BioGraph::Random;
 # Auteur : Tristan Colombo
 # Librairie de traitement des graphes
 # Création : le 18/06/2004
-# Modifications : -
+# Modifications : le 16/07/2004 
 
 use BioGraph::Compute;
 
-$VERSION="1.0.0";
+$VERSION="1.0.1";
 
 =pod
 
@@ -34,7 +34,7 @@ sub generate
 #####################################################
 # Tristan Colombo                                   #
 # Création : le 19/06/2004                          #
-# Modifications : -                                 #
+# Modifications : le 16/07/2004                     #
 #####################################################
 # Génère un graphe aléatoire                        #
 # Input  : Type du graphe : 1 = Matrice d'adjacence #
@@ -110,8 +110,8 @@ OUTPUT	The graph randomly generated
 		else
 			{ $C[$r].= "$k "; }
 	}
-	for ($r=1; $r <= $nb_class; $r++)
-		{ print "Classe $r :$C[$r]\n"; }
+	#for ($r=1; $r <= $nb_class; $r++)
+	#	{ print "Classe $r :$C[$r]\n"; }
 	# On complète le graphe avec les arêtes internes pour chaque classe
 	for ($r=1; $r <= $nb_class; $r++)
 	{

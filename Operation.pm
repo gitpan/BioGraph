@@ -3,9 +3,9 @@ package BioGraph::Operation;
 # Auteur : Tristan Colombo
 # Librairie de traitement des graphes
 # Création : le 22/06/2004
-# Modifications : -
+# Modifications : le 16/07/2004
 
-$VERSION="1.0.0";
+$VERSION="1.0.1";
 
 =pod
 
@@ -74,7 +74,7 @@ the hash table of the graph
 
 =item
 
-OUTPUT	The copied graph (you can use directly %T2=%T instead of this function).
+OUTPUT	The copied graph (you can use directly %T2=%T instead of this function but in this case, the modifications on %T will affect %T2).
 
 =back
 
@@ -84,24 +84,25 @@ OUTPUT	The copied graph (you can use directly %T2=%T instead of this function).
 
 	my $type=shift;
 	my %Ttmp=@_;
-	my %T=%Ttmp;
-	#my ($k, $k2);
-	#if ($type == 1)
-	#{
-	#	foreach $k (keys %Ttmp)
-	#	{
-	#		foreach $k2 (keys %{$Ttmp{$k}})
-	#		{
-	#			if (defined $Ttmp{$k}{$k2})
-	#				{ $T{$k}{$k2}=1; }
-	#		}
-	#	}
-	#}
-	#else
-	#{
-	#	foreach $k (keys %Ttmp)
-	#		{ $T{$k}=$Ttmp{$k}; }
-	#}
+	my %T;
+	my ($k, $k2);
+	if ($type == 1)
+	{
+		foreach $k (keys %Ttmp)
+		{
+			foreach $k2 (keys %{$Ttmp{$k}})
+			{
+				if (defined $Ttmp{$k}{$k2})
+					{ $T{$k}{$k2}=1; }
+			}
+		}
+	}
+	else
+	{
+		foreach $k (keys %Ttmp)
+			{ $T{$k}=$Ttmp{$k}; }
+	}
+
 	return(%T);
 } # fin de 'copy_graph'
 
@@ -372,7 +373,7 @@ sub compute_CC
 #####################################################
 # Tristan Colombo                                   #
 # Création : le 17/06/2004                          #
-# Modifications : -                                 #
+# Modifications : le 16/07/2004                     #
 #####################################################
 # Decoupage d'un graphe en CC                       #
 # Input  : Type du graphe : 1 = Matrice d'adjacence #
@@ -481,10 +482,10 @@ OUTPUT	The number of connected components and if selected, the files of the CC i
 			($composante[$N], $traite)=desc_prof($k, $traite, " $k ", $type, %Ts);
 			$N++;
 		}
-		for ($i=0; $i<$N; $i++)
-		{
-			print "$i => $composante[$i]\n";
-		}
+		#for ($i=0; $i<$N; $i++)
+		#{
+		#	print "$i => $composante[$i]\n";
+		#}
 	}
 	else
 	{
@@ -496,10 +497,10 @@ OUTPUT	The number of connected components and if selected, the files of the CC i
 			($composante[$N], $traite)=desc_prof($k, $traite, " $k ", $type, %Ts);
 			$N++;
 		}
-		for ($i=0; $i<$N; $i++)
-		{
-			print "$i => $composante[$i]\n";
-		}
+		#for ($i=0; $i<$N; $i++)
+		#{
+		#	print "$i => $composante[$i]\n";
+		#}
 	}
 	if ($creation)
 	{

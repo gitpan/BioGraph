@@ -3,11 +3,11 @@ package BioGraph::Visual;
 # Auteur : Tristan Colombo
 # Librairie de traitement des graphes
 # Création : le 17/06/2004
-# Modifications : le 22/06/2004
+# Modifications : le 22/06/2004, 16/07/2004
 
 use BioGraph::FileAccess;
 
-$VERSION="1.0.0";
+$VERSION="1.0.1";
 
 =pod
 
@@ -34,7 +34,7 @@ sub export
 #####################################################
 # Tristan Colombo                                   #
 # Création : le 17/06/2004                          #
-# Modifications : le 22/06/2004                     #
+# Modifications : le 22/06/2004, 16/07/2004         #
 #####################################################
 # Exportation du graphe vers un format              #
 # spécifié (dot, ps, gif, jpeg, fig)                #
@@ -150,13 +150,14 @@ OUTPUT	Nothing else the converted file
 		print S "}";
 		close(S);
 	}
+	return(1);
 } # fin de 'export'
 
 sub display
 #####################################################
 # Tristan Colombo                                   #
 # Création : le 17/06/2004                          #
-# Modifications : le 22/06/2004                     #
+# Modifications : le 22/06/2004, 16/07/2004         #
 #####################################################
 # Affichage d'un graphe                             #
 # Input  : Type du graphe : 1 = Matrice d'adjacence #
@@ -256,13 +257,14 @@ OUTPUT	Nothing else the graph on the screen
 		foreach $k (sort keys %T)
 			{ print "$k => $T{$k}\n"; }
 	}
+	return(1);
 } # fin de 'display'
 
 sub generate_3D
 #####################################################
 # Tristan Colombo                                   #
 # Création : le 23/06/2004                          #
-# Modifications : -                                 #
+# Modifications : le 16/07/2004                     #
 #####################################################
 # Génère un graphe en 3D                            #
 # Input  : Type du graphe : 1 = Matrice d'adjacence #
@@ -501,6 +503,7 @@ OUTPUT	The 3D graph in pdf format
 	print S "\npersp(x,y,z, theta=130, shade=0.75, phi=50, ltheta=120, ticktype=\"detailed\", expand=0.5, col=fcol)\n";
 	close(S);
 	system("R --save < $file_name.cmd > /dev/null");
+	return(1);
 	#system("rm $file_name.dot $file_name.xdot $file_name.cmd");
 } # fin de 'generate_3D'
 

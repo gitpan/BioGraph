@@ -3,11 +3,11 @@ package BioGraph::Compute;
 # Auteur : Tristan Colombo
 # Librairie de traitement des graphes
 # Création : le 17/06/2004
-# Modifications : -
+# Modifications : le 16/07/2004
 
 use BioGraph::Operation;
 
-$VERSION="1.0.0";
+$VERSION="1.0.1";
 
 =pod
 
@@ -417,7 +417,7 @@ sub cluster_coeff
 #####################################################
 # Tristan Colombo                                   #
 # Création : le 18/06/2004                          #
-# Modifications : -                                 #
+# Modifications : le 16/07/2004                     #
 #####################################################
 # Calcul du coefficient de clustering d'un graphe   #
 # Input  : Type du graphe : 1 = Matrice d'adjacence #
@@ -468,8 +468,8 @@ OUTPUT	Computing of the clustering coefficient defined by Watts and Strogatz ("C
 	my ($k, $k2, $k3, @succ, %degre);
 	my $traite=" ";
 	my $C=0;
-	my $N=nb_aretes($type, %T);
-	%T=Gs($type, %T);
+	my $N=edges_nb($type, %T);
+	%T=BioGraph::Operation::symetric($type, %T);
 	foreach $k (keys %T)
 	{
 		if ($type == 1)
@@ -1011,7 +1011,7 @@ sub external_density
 #####################################################
 # Tristan Colombo                                   #
 # Création : le 24/06/2004                          #
-# Modifications : -                                 #
+# Modifications : le 16/07/2004                     #
 #####################################################
 # Calcul de la densité externe d'un graphe          #
 # Input  : Type du graphe : 1 = Matrice d'adjacence #
@@ -1075,10 +1075,10 @@ OUTPUT	The external density of the graph.
 	my ($sum, $n) = (0, 0);
 	for ($i=1; $i<$nb_cluster; $i++)
 	{ 
-		@tmp=split(/\ /, $$ref_clust[$i]); 
+		@tmp=split(/\ /, $$ref_clust{$i}); 
 		for ($j=2; $j<=$nb_cluster; $j++)
 		{ 
-			@tmp2=split(/\ /, $$ref_clust[$j]); 
+			@tmp2=split(/\ /, $$ref_clust{$j}); 
 			$sum+=($#tmp*$#tmp2); 
 			$traite=" ";
 			foreach $k (@tmp)

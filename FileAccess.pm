@@ -3,11 +3,11 @@ package BioGraph::FileAccess;
 # Auteur : Tristan Colombo
 # Librairie de traitement des graphes
 # Création : le 17/06/2004
-# Modifications : -
+# Modifications : le 16/07/2004 
 
 use BioGraph::Analyze;
 
-$VERSION=1.0.0;
+$VERSION="1.0.1";
 
 =pod
 
@@ -617,7 +617,7 @@ sub write_graph_clusters
 #####################################################
 # Tristan Colombo                                   #
 # Création : le 25/06/2004                          #
-# Modifications : le 28/06/2004                     #
+# Modifications : le 28/06/2004, 16/07/2004         #
 #####################################################
 # Sauvegarde du graphe vers un format               #
 # spécifié (dot, pajek, biolayout, graph)           #
@@ -700,7 +700,7 @@ OUTPUT	Nothing else the file written to disk
 		{ die("BioGraph::FileAccess::write_graph : file format not recognized ($format). Choose one in $format_valide\n"); }
 	for ($k=1; $k<=$nb_clust; $k++)
 	{
-		@succ=split(/\ /, $$ref_clust[$k]);
+		@succ=split(/\ /, $$ref_clust{$k});
 		foreach $k2 (@succ)
 		{
 			next if ($k2 eq "");
@@ -896,13 +896,14 @@ OUTPUT	Nothing else the file written to disk
 		}
 		close(S);
 	}
+	return(1);
 } # fin de 'write_graph_clusters'
 
 sub write_treedyn_clusters
 #####################################################
 # Tristan Colombo                                   #
 # Création : le 01/07/2004                          #
-# Modifications : -                                 #
+# Modifications : le 16/07/2004                     #
 #####################################################
 {
 
@@ -956,7 +957,7 @@ OUTPUT	Nothing else the file written to disk
 	my ($k, $k2, @succ, %Cluster);
 	for ($k=1; $k<=$nb_clust; $k++)
 	{
-		@succ=split(/\ /, $$ref_clust[$k]);
+		@succ=split(/\ /, $$ref_clust{$k});
 		foreach $k2 (@succ)
 		{
 			next if ($k2 eq "");
@@ -967,6 +968,7 @@ OUTPUT	Nothing else the file written to disk
 	foreach $k (keys %Cluster)
 		{ print S "$k\tClasse $Cluster{$k}\n";}
 	close(S);
+	return(1);
 } # fin de 'write_treedynclusters'
 
 
